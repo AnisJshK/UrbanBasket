@@ -8,13 +8,11 @@ export default function Footer() {
     { heading: "Support", links: ["Help Center", "Returns", "Track Order", "Contact"] },
   ];
 
-  // 2. Map clean generic icons to replace the removed social brands
   const socialIcons = [
-    <MessageSquare className="w-4 h-4" key="threads-or-x" />, // Clean choice for X/Threads/Chat
-    <Globe className="w-4 h-4" key="web" />,                 // Clean choice for LinkedIn/Network
-    <Heart className="w-4 h-4" key="community" />,           // Clean choice for Facebook/Community
-    <Camera className="w-4 h-4" key="instagram" />           // Perfect clean replacement for Instagram/Photos
-  ];
+    <MessageSquare className="w-4 h-4" key="threads-or-x" />, 
+    <Globe className="w-4 h-4" key="web" />,                 
+    <Heart className="w-4 h-4" key="community" />,           
+    <Camera className="w-4 h-4" key="instagram" />           ]
 
   return (
     <footer className="bg-slate-900 pt-16 pb-8 px-6 md:px-12 lg:px-20">

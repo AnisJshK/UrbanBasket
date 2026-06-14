@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-green-100 selection:text-green-800">
       
-      <Navbar />
+
       <Hero />
       <Features />
       <Stats />

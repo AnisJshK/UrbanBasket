@@ -3,16 +3,22 @@ import HeroIllustration from "./HeroIllustration";
 import { useClerk } from "@clerk/react";
 
 export default function Hero() {
-    const {openSignUp,openSignIn} = useClerk()
+  const { openSignUp, openSignIn } = useClerk();
+
   return (
     <section className="min-h-screen pt-[110px] pb-20 px-6 md:px-12 lg:px-20 flex items-center bg-gradient-to-br from-green-50/70 via-white via-55% to-gray-50 relative overflow-hidden">
-      {/* Ambient Blobs */}
       <div className="absolute -top-[100px] -right-[120px] w-[520px] h-[520px] bg-radial-gradient from-green-500/12 to-transparent rounded-full pointer-events-none" />
       <div className="absolute -bottom-[60px] left-[10%] w-[320px] h-[320px] bg-radial-gradient from-green-500/7 to-transparent rounded-full pointer-events-none" />
 
-      <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
-        {/* Left Copy */}
+      <div className="max-w-6xl w-full mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative shadow-2xl p-2 rounded-2xl">
+      
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          
+          {/* New UrbanBasket Big Title requested in image_618988.jpg */}
+          <h0 className="text-[3.5rem] md:text-[5rem] lg:text-[5.5rem] font-black tracking-tight leading-none mb-4 text-slate-900 select-none">
+            Urban<span className="text-green-500">Basket</span>
+          </h0>
+
           <div className="inline-flex items-center gap-1.5 bg-green-100 border border-green-200 rounded-full px-3.5 py-1.5 mb-6">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
             <span className="text-[0.78rem] text-green-600 font-semibold tracking-wide">
@@ -33,21 +39,20 @@ export default function Hero() {
 
           <div className="flex flex-wrap gap-3.5 justify-center md:justify-start">
             <div
-             onClick={()=>openSignUp()}
+              onClick={() => openSignUp()}
               className="inline-flex items-center gap-1.5 px-7 py-3 cursor-pointer bg-gradient-to-br from-green-500 to-green-600 text-white font-bold rounded-xl text-[0.95rem] shadow-lg shadow-green-500/38 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-green-500/42 transition-all duration-200"
             >
               Get Started
               <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
             </div>
             <div
-              onClick={()=>openSignIn()}
+              onClick={() => openSignIn()}
               className="px-7 py-3 bg-white text-slate-900 cursor-pointer font-semibold rounded-xl text-[0.95rem] border border-slate-200 shadow-sm hover:-translate-y-0.5 hover:border-green-500 transition-all duration-200"
             >
               Log in
             </div>
           </div>
 
-          {/* Social Proof */}
           <div className="mt-10 flex items-center gap-4">
             <div className="flex -space-x-2">
               {["bg-orange-500", "bg-purple-500", "bg-green-500", "bg-blue-500", "bg-pink-500"].map((color, i) => (
@@ -65,7 +70,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right Illustration */}
         <div className="flex justify-center items-center animate-[float_5s_ease-in-out_infinite]">
           <HeroIllustration />
         </div>

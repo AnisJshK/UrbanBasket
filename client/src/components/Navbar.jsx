@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import logo from "../assets/UrbanBasket.png"; 
-import { useClerk } from "@clerk/react";
-
+import { useClerk,UserButton,useUser } from "@clerk/react";
+import { useNavigate } from "react-router-dom";
+import { ShoppingBag, ShoppingCart, ShoppingCartIcon } from "lucide-react";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
-
+  const navigate = useNavigate()
   const {openSignIn} = useClerk();
+  const {user} = useUser()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -44,12 +46,23 @@ export default function Navbar() {
         >
           Features
         </a>
-        <div
+        {user?
+      <>
+      <UserButton>
+        <UserButton.MenuItems>
+          <UserButton.Action label="My Orders" labelIcon={<ShoppingCartIcon width={15}/>} onClick={()=>navigate('/my-orders')}/>
+        </UserButton.MenuItems>
+      </UserButton>
+      </>
+      :
+      <>
+      <div
             onClick={()=>openSignIn()}
           className="px-[1.1rem] py-[0.45rem] border-[1.5px] border-green-500 rounded-lg text-green-500 hover:bg-green-500 cursor-pointer hover:text-white font-semibold text-sm transition-all duration-200"
         >
           Log in
-        </div>
+        </div></>  
+      }
       </div>
     </nav>
   );
