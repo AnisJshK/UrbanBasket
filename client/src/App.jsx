@@ -1,7 +1,18 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
 import { useUser } from "@clerk/react";
-import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+import ProductDetails from "./pages/ProductDetails";
+
+const MainLayout = ()=>{
+  return (
+    <>
+    <Navbar/>
+    <Outlet/>
+    </>
+  )
+}
 
 const App = () => {
   const { user, isLoaded } = useUser();
@@ -14,12 +25,18 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         {user ? (
-          <>
-            <Route path="/" element={<Dashboard/>}/>
-          </>
+          <Route element={<MainLayout/>}>
+
+            <Route path="/" element={<Home/>}/>
+            <Route path="/product/*" element={<ProductDetails/>} />
+          </Route>
+            
         ) : (
           <>
-            <Route path="/" element={<Home />} />
+               
+
+            <Route path="/" element={<LandingPage />} />
+            
           </>
         )}
       </Routes>

@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 @import "tailwindcss";
 
+*{
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+}
 @theme {
   /* ─── Custom Floating Animation ─── */
   --animate-float: float 5s ease-in-out infinite;
@@ -16,3 +21,4 @@
   /* ─── Custom Ambient Gradients ─── */
   --bg-radial-gradient: radial-gradient(circle, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 70%);
 }
+

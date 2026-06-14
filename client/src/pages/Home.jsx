@@ -1,21 +1,15 @@
-import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import Features from "../components/Features";
-import Stats from "../components/Stats";
-import CTABanner from "../components/CTABanner";
-import Footer from "../components/Footer";
-
-export default function Home() {
-
+import Navbar from '../components/Navbar'
+import DashboardHero from '../components/DashboardHero'
+import LatestCollection from '../components/LatestCollection'
+const Home = () => {
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-green-100 selection:text-green-800">
-      
-
-      <Hero />
-      <Features />
-      <Stats />
-      <CTABanner />
-      <Footer />
+    <div>
+      <main className="pt-19 px-6 md:px-12 lg:px-20 max-w-10xl mx-auto">
+        <DashboardHero />
+        <LatestCollection/>
+      </main>
     </div>
-  );
+  )
 }
+
+export default Home
