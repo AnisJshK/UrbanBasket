@@ -1,20 +1,48 @@
-import React, { useContext } from 'react'
-import { ShopContext } from '../context/ShopContext'
-import { Link } from 'react-router-dom';
+import { useContext } from "react";
+import { ShopContext } from "../context/ShopContext";
+import { Link } from "react-router-dom";
 
-const ProductItem = ({id,name,image,price}) => {
-
-    const {currency}  = useContext(ShopContext);
+const ProductItem = ({ id, name, image, price }) => {
+  const { currency } = useContext(ShopContext);
 
   return (
-    <Link className='text-gray-700 cursor-pointer transition-shadow duration-300 hover:shadow-2xl rounded-2xl p-1' to={`/product/${id}`}>
-      <div className='overflow-hidden'>
-        <img className='hover:scale-100 transition ease-in-out' src={image[0]} alt="" />
+    <Link
+      className="group text-gray-700 cursor-pointer rounded-2xl p-2 block
+                 transition-all duration-300 ease-out
+                 hover:-translate-y-1 hover:shadow-xl hover:shadow-green-100
+                 hover:bg-green-50/40"
+      to={`/product/${id}`}
+    >
+      <div className="overflow-hidden rounded-xl bg-gray-50 relative">
+        <img
+          className="w-full transition-transform duration-500 ease-out
+                     group-hover:scale-110"
+          src={image[0]}
+          alt={name}
+        />
+        {/* subtle green sheen on hover */}
+        <div
+          className="absolute inset-0 bg-green-500/0 group-hover:bg-green-500/5
+                         transition-colors duration-300"
+        />
       </div>
-      <p className='pt-3 pb-1 text-sm'>{name}</p>
-      <p className='text-sm font-medium'>{currency}{price}</p>
-    </Link>
-  )
-}
 
-export default ProductItem
+      <p
+        className="pt-3 pb-1 text-sm transition-colors duration-300
+                     group-hover:text-green-700"
+      >
+        {name}
+      </p>
+
+      <p
+        className="text-sm font-medium text-gray-900 transition-colors duration-300
+                     group-hover:text-green-600"
+      >
+        {currency}
+        {price}
+      </p>
+    </Link>
+  );
+};
+
+export default ProductItem;
