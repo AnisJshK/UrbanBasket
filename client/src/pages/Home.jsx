@@ -2,6 +2,8 @@ import DashboardHero from '../components/DashboardHero'
 import LatestCollection from '../components/LatestCollection'
 import BestSeller from '../components/BestSeller'
 import OurPolicies from '../components/OurPolicies'
+import NewsLetter from '../components/NewsLetter'
+import Footer1 from '../components/Footer1'
 const Home = () => {
   return (
     <div>
@@ -10,6 +12,8 @@ const Home = () => {
         <LatestCollection/>
         <BestSeller/>
         <OurPolicies/>
+        <NewsLetter/>
+        <Footer1/>
       </main>
     </div>
   )

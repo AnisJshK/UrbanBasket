@@ -52,16 +52,28 @@ export default function Navbar() {
       {/* Desktop Navigation links */}
       <div className="hidden md:flex items-center gap-8">
         <a
-          href="#features"
+          onClick={()=>navigate('/')}
           className="text-slate-600 hover:text-green-600 font-medium text-sm transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-green-500 hover:after:w-full after:transition-all after:duration-300"
         >
-          Features
+          Home
         </a>
         <a
-          href="#products"
+           onClick={()=>navigate('/products')}
           className="text-slate-600 hover:text-green-600 font-medium text-sm transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-green-500 hover:after:w-full after:transition-all after:duration-300"
         >
           Products
+        </a>
+        <a
+          onClick={()=>navigate('/my-orders')}
+          className="text-slate-600 hover:text-green-600 font-medium text-sm transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-green-500 hover:after:w-full after:transition-all after:duration-300"
+        >
+          Orders
+        </a>
+        <a
+           onClick={()=>navigate('/contact-us')}
+          className="text-slate-600 hover:text-green-600 font-medium text-sm transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-green-500 hover:after:w-full after:transition-all after:duration-300"
+        >
+          Contact
         </a>
       </div>
 
