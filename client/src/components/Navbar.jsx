@@ -122,16 +122,28 @@ export default function Navbar() {
         }`}
       >
         <a
-          href="#features"
+          onClick={()=>navigate('/Home')}
           className="text-slate-700 hover:text-green-600 font-semibold text-md py-2 border-b border-slate-50"
         >
-          Features
+          Home
         </a>
         <a
-          href="#products"
+          onClick={()=>navigate('/products')}
           className="text-slate-700 hover:text-green-600 font-semibold text-md py-2 border-b border-slate-50"
         >
           Products
+        </a>
+        <a
+          onClick={()=>navigate('/my-orders')}
+          className="text-slate-700 hover:text-green-600 font-semibold text-md py-2 border-b border-slate-50"
+        >
+          Orders
+        </a>
+        <a
+          onClick={()=>navigate('/contact-us')}
+          className="text-slate-700 hover:text-green-600 font-semibold text-md py-2 border-b border-slate-50"
+        >
+          Contact
         </a>
         {!user && (
           <button

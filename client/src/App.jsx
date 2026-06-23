@@ -7,12 +7,16 @@ import ProductDetails from "./pages/ProductDetails";
 import Products from "./pages/Products";
 import Orders from "./pages/Orders";
 import Contact from "./pages/Contact";
+import Footer1 from "./components/Footer1";
+import OurPolicies from "./components/OurPolicies";
 
 const MainLayout = ()=>{
   return (
     <>
     <Navbar/>
     <Outlet/>
+    <Footer1/>
+    <OurPolicies/>
     </>
   )
 }
