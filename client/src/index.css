@@ -22,3 +22,6 @@
   --bg-radial-gradient: radial-gradient(circle, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 70%);
 }
 
+::-webkit-scrollbar{
+  display: none;
+}

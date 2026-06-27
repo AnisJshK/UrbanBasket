@@ -11,7 +11,7 @@ const ProductItem = ({ id, name, image, price }) => {
                  transition-all duration-300 ease-out
                  hover:-translate-y-1 hover:shadow-xl hover:shadow-green-100
                  hover:bg-green-50/40"
-      to={`/product/${id}`}
+      to={`/products/${id}`}
     >
       <div className="overflow-hidden rounded-xl bg-gray-50 relative">
         <img
