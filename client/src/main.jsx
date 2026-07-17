@@ -7,7 +7,6 @@ import ShopContextProvider from './context/ShopContext.jsx'
 createRoot(document.getElementById('root')).render(
 <ClerkProvider>
   <ShopContextProvider>
-
   <App/>
   </ShopContextProvider>
 </ClerkProvider>

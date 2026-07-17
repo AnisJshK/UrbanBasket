@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { assets } from "../assets/frontend_assets/assets";
 import { ShoppingCart } from "lucide-react";
+import RelatedProducts from "../components/RelatedProducts";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency,addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
@@ -107,7 +108,7 @@ const ProductDetails = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 mt-8">
-            <button className="sm:flex-1 flex items-center justify-center gap-2 border-2 border-green-600 text-green-700 font-medium h-12 rounded-xl hover:bg-green-600 hover:text-white transition-all duration-200 ">
+            <button onClick={()=>addToCart(productData._id,size)} className="sm:flex-1 flex items-center justify-center gap-2 border-2 border-green-600 text-green-700 font-medium h-12 rounded-xl hover:bg-green-600 hover:text-white transition-all duration-200 ">
               Add to Collection <ShoppingCart size={18} />
             </button>
 
@@ -117,6 +118,19 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+      <div className="mt-20">
+              <div className="flex">
+                <b className="border rounded px-5 py-3 text-sm">Description</b>
+                <p className="border rounded px-5 py-3 text-sm">Reviews (122)</p>
+              </div>
+              <div className="flex flex-col gap-4 border rounded-2xl px-6 py-6 text-sm text-gray-500">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi temporibus, culpa, molestiae, dolorem debitis nesciunt laborum eaque mollitia pariatur maiores atque! Doloremque, quasi modi repudiandae molestiae eos architecto. Aliquid, enim!</p>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam laborum non fuga adipisci repudiandae ad minima, sint nobis, aspernatur libero quasi enim. Quo, corrupti rem optio veritatis quod odit accusantium?</p>
+              </div>
+      </div>
+
+      {/*-------------display related products---------------------*/}
+      <RelatedProducts category={productData.category} subCategory={productData.subCategory} ></RelatedProducts>
     </div>
   ) : (
     <div className="min-h-screen flex items-center justify-center">

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import logo from "../assets/UrbanBasket.png"; 
 import { useClerk, UserButton, useUser } from "@clerk/react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ShoppingCartIcon, Menu, X } from "lucide-react";
+import { ShoppingCartIcon, Menu, X, ShoppingBagIcon } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -75,6 +75,10 @@ export default function Navbar() {
         >
           Contact
         </a>
+        
+        <a onClick={()=>navigate('/my-cart')} >
+          <ShoppingBagIcon className="cursor-pointer h-4 w-4 hover:bg-gray-300/30 rounded-2xl"/>
+        </a>
       </div>
 
       {/* Actions (Desktop & Base UI) */}
@@ -145,6 +149,11 @@ export default function Navbar() {
         >
           Contact
         </a>
+
+        <a onClick={()=>navigate('/my-cart')} >
+          <ShoppingBagIcon className="cursor-pointer h-6 w-6"/>
+        </a>
+
         {!user && (
           <button
             onClick={() => openSignIn()}
