@@ -108,11 +108,11 @@ const ProductDetails = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 mt-8">
-            <button onClick={()=>addToCart(productData._id,size)} className="sm:flex-1 flex items-center justify-center gap-2 border-2 border-green-600 text-green-700 font-medium h-12 rounded-xl hover:bg-green-600 hover:text-white transition-all duration-200 ">
+            <button onClick={()=>addToCart(productData._id,size)} className="sm:flex-1 cursor-pointer flex items-center justify-center gap-2 border-2 border-green-600 text-green-700 font-medium h-12 rounded-xl hover:bg-green-600 hover:text-white transition-all duration-200 ">
               Add to Collection <ShoppingCart size={18} />
             </button>
 
-            <button className="sm:flex-1 flex items-center justify-center bg-green-600 text-white font-medium h-12 rounded-xl hover:bg-green-700 transition-all duration-200 shadow-lg shadow-green-600/20">
+            <button className="sm:flex-1 flex items-center justify-center cursor-pointer bg-green-600 text-white font-medium h-12 rounded-xl hover:bg-green-700 transition-all duration-200 shadow-lg shadow-green-600/20">
               Buy Now
             </button>
           </div>
