@@ -11,6 +11,7 @@ import Footer1 from "./components/Footer1";
 import OurPolicies from "./components/OurPolicies";
 import MyCart from "./pages/MyCart";
  import { ToastContainer, toast } from 'react-toastify';
+import PlaceOrder from "./pages/PlaceOrder";
 
 const MainLayout = ()=>{
   return (
@@ -43,6 +44,7 @@ const App = () => {
             <Route path="/contact-us*" element={<Contact/>} />
             <Route path="/products/:id" element={<ProductDetails/>} />
             <Route path="/my-cart" element={<MyCart/>} />
+            <Route path="/place-order" element={<PlaceOrder/>} />
           </Route>
             
         ) : (

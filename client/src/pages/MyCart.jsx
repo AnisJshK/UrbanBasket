@@ -26,6 +26,7 @@ const MyCart = () => {
   }, [cartItems]);
 
   const itemCount = cartData.reduce((sum, item) => sum + item.quantity, 0);
+ 
 
   return (
     <div className="border-t pt-16 max-w-6xl mx-auto px-2 sm:px-0">
