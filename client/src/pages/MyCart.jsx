@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const MyCart = () => {
   const { products, currency, cartItems, updateQuantity } = useContext(ShopContext);
@@ -29,7 +29,7 @@ const MyCart = () => {
  
 
   return (
-    <div className="border-t pt-16 max-w-6xl mx-auto px-2 sm:px-0">
+    <div className="border-t pt-20 max-w-6xl mx-auto px-2 sm:px-0">
       <div className="mb-1">
         <Title text1={"YOUR "} text2={"BAG"} />
       </div>

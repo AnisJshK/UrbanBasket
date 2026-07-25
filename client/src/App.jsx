@@ -10,7 +10,7 @@ import Contact from "./pages/Contact";
 import Footer1 from "./components/Footer1";
 import OurPolicies from "./components/OurPolicies";
 import MyCart from "./pages/MyCart";
- import { ToastContainer, toast } from 'react-toastify';
+ import { ToastContainer } from 'react-toastify';
 import PlaceOrder from "./pages/PlaceOrder";
 
 const MainLayout = ()=>{

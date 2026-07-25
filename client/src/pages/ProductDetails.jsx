@@ -112,9 +112,7 @@ const ProductDetails = () => {
               Add to Collection <ShoppingCart size={18} />
             </button>
 
-            <button className="sm:flex-1 flex items-center justify-center cursor-pointer bg-green-600 text-white font-medium h-12 rounded-xl hover:bg-green-700 transition-all duration-200 shadow-lg shadow-green-600/20">
-              Buy Now
-            </button>
+           
           </div>
         </div>
       </div>
