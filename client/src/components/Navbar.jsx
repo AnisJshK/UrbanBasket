@@ -126,7 +126,7 @@ export default function Navbar() {
         }`}
       >
         <a
-          onClick={()=>navigate('/Home')}
+          onClick={()=>navigate('/')}
           className="text-slate-700 hover:text-green-600 font-semibold text-md py-2 border-b border-slate-50"
         >
           Home
