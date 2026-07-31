@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@clerk/express": "^2.1.48",
     "clerk": "^2.3.1",
     "cloudinary": "^2.10.0",
     "cors": "^2.8.6",
