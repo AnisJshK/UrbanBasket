@@ -5,6 +5,8 @@ import dotenv from 'dotenv'
 import { clerkMiddleware } from '@clerk/express'
 import connectDB from "./config/mongo.js";
 import connectCloudinary from "./config/cloudinary.js";
+import {v2 as cloudinary} from 'cloudinary'
+import productRouter from "./routes/productRoute.js";
 
 dotenv.config();
 
@@ -19,11 +21,14 @@ app.use(clerkMiddleware())
 
 
 connectCloudinary();
+console.log("Cloudinary config:", cloudinary.config())
 
 app.get('/',(req,res)=>{
-    res.send('Hello world')
+    res.send('server running on port 3000')
 })
 app.use("/api/inngest",serve({client:inngest,functions}));
+app.use('/api/product',productRouter);
+
 console.log("Inngest mode:", process.env.INNGEST_DEV ? "DEV" : "CLOUD");
 
 app.listen(PORT,()=>{
