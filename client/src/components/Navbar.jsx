@@ -37,7 +37,7 @@ export default function Navbar() {
         onClick={() => navigate("/")} 
         className="flex items-center gap-2.5 group cursor-pointer select-none"
       >
-        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-md shadow-green-500/20 transition-all duration-300 group-hover:scale-105 group-hover:shadow-green-500/30">
+        <div className="w-10 h-10 bg-linear-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-md shadow-green-500/20 transition-all duration-300 group-hover:scale-105 group-hover:shadow-green-500/30">
           <img
             src={logo}
             alt="UrbanBasket"
@@ -94,7 +94,7 @@ export default function Navbar() {
                 />
               </UserButton.MenuItems>
             </UserButton>
-            <span className="text-xs font-medium text-slate-600 max-w-[80px] truncate hidden sm:inline-block">
+            <span className="text-xs font-medium text-slate-600 max-w-20 truncate hidden sm:inline-block">
               {user.firstName || "Account"}
             </span>
           </div>
@@ -119,7 +119,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer Menu */}
       <div
-        className={`absolute top-[72px] left-0 right-0 bg-white/95 backdrop-blur-lg border-b border-gray-100 px-6 py-6 transition-all duration-300 flex flex-col gap-4 md:hidden z-40 ${
+        className={`absolute top-18 left-0 right-0 bg-white/95 backdrop-blur-lg border-b border-gray-100 px-6 py-6 transition-all duration-300 flex flex-col gap-4 md:hidden z-40 ${
           mobileMenuOpen 
             ? "opacity-100 translate-y-0 pointer-events-auto" 
             : "opacity-0 -translate-y-4 pointer-events-none"

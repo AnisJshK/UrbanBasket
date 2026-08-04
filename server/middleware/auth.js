@@ -14,7 +14,7 @@ export const protectAdmin = async(req,res,next)=>{
         if(user.privateMetadata.role !== 'admin'){
             return res.json({
                 success:false,
-                messagee:"Not authorized"
+                message:"Not authorized"
             })
         }
         next();
