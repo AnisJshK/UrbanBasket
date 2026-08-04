@@ -22,7 +22,7 @@ app.use(clerkMiddleware())
 
 
 connectCloudinary();
-console.log("Cloudinary config:", cloudinary.config())
+cloudinary.config();
 
 app.get('/',(req,res)=>{
     res.send('server running on port 3000')
