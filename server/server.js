@@ -7,6 +7,7 @@ import connectDB from "./config/mongo.js";
 import connectCloudinary from "./config/cloudinary.js";
 import {v2 as cloudinary} from 'cloudinary'
 import productRouter from "./routes/productRoute.js";
+import adminRouter from "./routes/adminRoute.js";
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.get('/',(req,res)=>{
 })
 app.use("/api/inngest",serve({client:inngest,functions}));
 app.use('/api/product',productRouter);
+app.use('/api/admin',adminRouter);
 
 console.log("Inngest mode:", process.env.INNGEST_DEV ? "DEV" : "CLOUD");
 
