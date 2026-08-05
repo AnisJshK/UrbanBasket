@@ -5,7 +5,20 @@
   font-family: Outfit;
 }
 
+select,input,textarea{
+  border:1px solid #c2c2c2;
+  outline-color: #16a34a;
+  border-radius: 4px;
+} 
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
 .active{
-  background-color: #ffebf5 ;
-  border-color:#c586A5
+  /* background-color: # */
+  border-color:#16a34a;
 }
