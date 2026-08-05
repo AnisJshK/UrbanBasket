@@ -7,6 +7,7 @@ export const backendUrl = import.meta.env.VITE_BACKEND_URL
 const AdminAuth = () => {
     const {getToken,isLoaded,isSignedIn} = useAuth();
     const [isAdmin,setIsAdmin] = useState(null);
+   
 
     useEffect(()=>{
         const check = async()=>{
@@ -34,9 +35,9 @@ export const AuthContext = createContext(null);
 
 export function AuthProvider ({children}){
     const {getToken} = useAuth();
-
+     const currency = "₹";
     return (
-        <AuthContext.Provider value={{getToken}}>
+        <AuthContext.Provider value={{getToken,currency}}>
             {children}
         </AuthContext.Provider>
     )

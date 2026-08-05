@@ -6,6 +6,7 @@ import List from "./pages/List";
 import Orders from "./pages/Orders";
 import AdminAuth, { AuthProvider } from "./context/AdminAuth";
 import { SignedOut, SignIn, SignOutButton, useUser } from "@clerk/clerk-react";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const isAdmin = AdminAuth();
@@ -34,8 +35,8 @@ function App() {
 
   return (
     <AuthProvider>
-
     <div className="bg-gray-50  h-screen  ">
+      <ToastContainer position="top-right"/>
 
       <>
         <Navbar />

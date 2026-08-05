@@ -3,6 +3,7 @@ import { assets } from "../assets/admin_assets/assets"
 import axios from 'axios'
 import { AuthContext, backendUrl } from "../context/AdminAuth";
 import { useAuth } from "@clerk/clerk-react";
+import {toast} from 'react-toastify'
 
 const Add = () => {
   const [image1,setImage1] = useState(false);
@@ -48,11 +49,24 @@ const Add = () => {
           }
         } );
 
-        console.log(response.data)
+       if(response.data.success){
+          toast.success(response.data.message)
+          setName('')
+          setDescription('')
+          setImage1(false)
+          setImage2(false)
+          setImage3(false)
+          setImage4(false)
+          setPrice('')
+         
+       }else{
+        toast.error(response.data.message)
+       }
 
 
       } catch (error) {
-        
+        console.log(error);
+        toast.error(error.message)
       }
   }
 
