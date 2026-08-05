@@ -1,7 +1,8 @@
 import {useAuth,useUser} from '@clerk/clerk-react'
 import { useEffect,useState } from 'react';
 import axios from 'axios';
-const backendUrl = import.meta.env.VITE_BACKEND_URL
+import { createContext } from 'react';
+export const backendUrl = import.meta.env.VITE_BACKEND_URL
 
 const AdminAuth = () => {
     const {getToken,isLoaded,isSignedIn} = useAuth();
@@ -27,6 +28,18 @@ const AdminAuth = () => {
         check();
     },[isLoaded,isSignedIn])
   return isAdmin;
+}
+
+export const AuthContext = createContext(null);
+
+export function AuthProvider ({children}){
+    const {getToken} = useAuth();
+
+    return (
+        <AuthContext.Provider value={{getToken}}>
+            {children}
+        </AuthContext.Provider>
+    )
 }
 
 export default AdminAuth

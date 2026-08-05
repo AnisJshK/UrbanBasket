@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Add from "./pages/Add";
 import List from "./pages/List";
 import Orders from "./pages/Orders";
-import AdminAuth from "./context/AdminAuth";
+import AdminAuth, { AuthProvider } from "./context/AdminAuth";
 import { SignedOut, SignIn, SignOutButton, useUser } from "@clerk/clerk-react";
 
 function App() {
@@ -33,7 +33,10 @@ function App() {
     );
 
   return (
+    <AuthProvider>
+
     <div className="bg-gray-50  h-screen  ">
+
       <>
         <Navbar />
         <hr className="border-t h-1px bg-gray-200" />
@@ -42,13 +45,14 @@ function App() {
         <Sidebar />
         <div className="w-[70%] mx-auto ml-[max(5vw,25px)] my-8 text-gray-600 text-base">
           <Routes>
-            <Route path="/add" element={<Add />} />
-            <Route path="/list" element={<List />} />
-            <Route path="/orders" element={<Orders />} />
+            <Route path="/api/admin/add" element={<Add />} />
+            <Route path="/api/admin/list" element={<List />} />
+            <Route path="/api/admin/orders" element={<Orders />} />
           </Routes>
         </div>
       </div>
     </div>
+    </AuthProvider>
   );
 }
 
