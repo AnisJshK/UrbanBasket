@@ -8,6 +8,7 @@ import connectCloudinary from "./config/cloudinary.js";
 import {v2 as cloudinary} from 'cloudinary'
 import productRouter from "./routes/productRoute.js";
 import adminRouter from "./routes/adminRoute.js";
+import cors from 'cors'
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ connectDB();
 
 
 app.use(express.json());
+app.use(cors())
 app.use(clerkMiddleware())
 
 
