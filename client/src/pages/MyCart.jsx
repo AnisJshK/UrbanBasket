@@ -10,7 +10,8 @@ const MyCart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const tempData = [];
+    if(products.length>0){
+      const tempData = [];
     for (const items in cartItems) {
       for (const item in cartItems[items]) {
         if (cartItems[items][item] > 0) {
@@ -23,6 +24,7 @@ const MyCart = () => {
       }
     }
     setCartData(tempData);
+    }
   }, [cartItems]);
 
   const itemCount = cartData.reduce((sum, item) => sum + item.quantity, 0);

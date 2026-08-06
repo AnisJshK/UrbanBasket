@@ -1,12 +1,16 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from 'axios';
+import {useAuth} from '@clerk/react'
+
+
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) =>{
     
     const currency = '₹';
     const delivery_fee = 50;
+    const {getToken} = useAuth();
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [cartItems,setCartItems] = useState({});
     const [products,setProducts] = useState([]);
@@ -33,6 +37,19 @@ const ShopContextProvider = (props) =>{
         }
 
         setCartItems(cartData);
+
+        try {
+            const token = await getToken();
+            await axios.post(`${backendUrl}/api/cart/addToCart`,{itemId,size},{
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            })
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message)
+        }
+
     }
 
     useEffect(()=>{
@@ -44,7 +61,40 @@ const ShopContextProvider = (props) =>{
         cartData[itemId][size] = quantity;
 
         setCartItems(cartData);
+
+        try {
+            const token = await getToken();
+            await axios.post(`${backendUrl}/api/cart/updateCart`,{itemId,size,quantity},{
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            });
+            
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message);
+        }
     }
+
+
+    const getUserCart = async()=>{
+        try {
+            const token = await getToken();
+            const response = await axios.get(`${backendUrl}/api/cart/getCart`,{
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            });
+            setCartItems(response.data.cartData);
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message)
+        }
+    }
+    useEffect(()=>{
+        getUserCart()
+    },[])
+
 
     const getCartAmount = ()=>{
         let totalAmount = 0;

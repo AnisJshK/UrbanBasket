@@ -26,7 +26,7 @@ export const protectAdmin = async(req,res,next)=>{
     }
 }
 
-export const protectUser = async(req,res)=>{
+export const protectUser = async(req,res,next)=>{
     try {
         const {userId} = getAuth(req);
         if(!userId){
