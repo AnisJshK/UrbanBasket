@@ -10,6 +10,7 @@ import productRouter from "./routes/productRoute.js";
 import adminRouter from "./routes/adminRoute.js";
 import cors from 'cors'
 import cartRouter from "./routes/cartRoute.js";
+import orderRouter from "./routes/orderRoute.js";
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use("/api/inngest",serve({client:inngest,functions}));
 app.use('/api/product',productRouter);
 app.use('/api/admin',adminRouter);
 app.use('/api/cart',cartRouter);
+app.use('/api/order',orderRouter);
 
 console.log("Inngest mode:", process.env.INNGEST_DEV ? "DEV" : "CLOUD");
 

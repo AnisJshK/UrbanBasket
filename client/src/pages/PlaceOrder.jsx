@@ -6,6 +6,25 @@ import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState(["stripe","razor_pay"]);
+  const [formData,setFormData] = useState({
+    firstName:'',
+    lastName:'',
+    email:'',
+    street:'',
+    city:'',
+    state:'',
+    zipcode:'',
+    country:'',
+    phone:''
+  })
+
+  const onChangeHandler = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    setFormData(data=>({...data,[name]:value}))
+
+  }
 
   const navigate = useNavigate();
 
@@ -13,7 +32,7 @@ const PlaceOrder = () => {
     "w-full border border-zinc-300 bg-white rounded py-2 px-3.5 text-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-800 transition-colors";
 
   return (
-    <div className="flex flex-col lg:flex-row justify-between gap-10 sm:gap-16 pt-10 sm:pt-16 pb-20 px-4 sm:px-10 border-t border-zinc-200 min-h-[80vh] max-w-7xl mx-auto bg-white">
+    <form className="flex flex-col lg:flex-row justify-between gap-10 sm:gap-16 pt-10 sm:pt-16 pb-20 px-4 sm:px-10 border-t border-zinc-200 min-h-[80vh] max-w-7xl mx-auto bg-white">
       
       {/* ---------------- Left Side: Delivery Information ---------------- */}
       <div className="flex flex-col gap-4 w-full lg:max-w-[480px]">
@@ -22,25 +41,25 @@ const PlaceOrder = () => {
         </div>
 
         <div className="flex gap-3">
-          <input className={inputStyle} type="text" placeholder="First name" />
-          <input className={inputStyle} type="text" placeholder="Last name" />
+          <input required onChange={onChangeHandler} name="firstName" value={formData.firstName} className={inputStyle} type="text" placeholder="First name" />
+          <input required onChange={onChangeHandler} name="lastName" value={formData.lastName} className={inputStyle} type="text" placeholder="Last name" />
         </div>
 
-        <input className={inputStyle} type="email" placeholder="Email address" />
+        <input required onChange={onChangeHandler} name="email" value={formData.email} className={inputStyle} type="email" placeholder="Email address" />
 
-        <input className={inputStyle} type="text" placeholder="Street address" />
+        <input required onChange={onChangeHandler} name="street" value={formData.street} className={inputStyle} type="text" placeholder="Street address" />
 
         <div className="flex gap-3">
-          <input className={inputStyle} type="text" placeholder="City" />
-          <input className={inputStyle} type="text" placeholder="State" />
+          <input required onChange={onChangeHandler} name="city" value={formData.city} className={inputStyle} type="text" placeholder="City" />
+          <input required onChange={onChangeHandler} name="state" value={formData.state} className={inputStyle} type="text" placeholder="State" />
         </div>
 
         <div className="flex gap-3">
-          <input className={inputStyle} type="number" placeholder="Zip code" />
-          <input className={inputStyle} type="text" placeholder="Country" />
+          <input required onChange={onChangeHandler} name="zipcode" value={formData.zipcode} className={inputStyle} type="number" placeholder="Zip code" />
+          <input required onChange={onChangeHandler} name="country" value={formData.country} className={inputStyle} type="text" placeholder="Country" />
         </div>
 
-        <input className={inputStyle} type="tel" placeholder="Phone number" />
+        <input required onChange={onChangeHandler} name="phone" value={formData.phone} className={inputStyle} type="tel" placeholder="Phone number" />
       </div>
 
       {/* ---------------- Right Side: Cart Summary & Payment ---------------- */}
@@ -95,7 +114,7 @@ const PlaceOrder = () => {
 
           {/* Place Order CTA Button */}
           <div className="w-full text-end mt-4">
-            <button onClick={()=>navigate('/my-orders')} className="bg-zinc-900 text-white hover:bg-zinc-700 font-bold uppercase tracking-widest text-xs px-8 py-3 rounded transition-colors w-full sm:w-auto cursor-pointer">
+            <button type="submit"  className="bg-zinc-900 text-white hover:bg-zinc-700 font-bold uppercase tracking-widest text-xs px-8 py-3 rounded transition-colors w-full sm:w-auto cursor-pointer">
               Place Order
             </button>
           </div>
@@ -103,7 +122,7 @@ const PlaceOrder = () => {
 
       </div>
 
-    </div>
+    </form>
   );
 };
 
