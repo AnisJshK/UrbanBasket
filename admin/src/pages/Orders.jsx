@@ -1,7 +1,10 @@
 
 const Orders = () => {
   return (
-    <div>Orders</div>
+    <div>
+      {/* WIP */}
+      Website In Maintainence 
+    </div>
   )
 }
 

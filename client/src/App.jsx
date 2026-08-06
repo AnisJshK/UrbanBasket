@@ -12,6 +12,7 @@ import OurPolicies from "./components/OurPolicies";
 import MyCart from "./pages/MyCart";
  import { ToastContainer } from 'react-toastify';
 import PlaceOrder from "./pages/PlaceOrder";
+import ScrollToTop from "./components/ScrollToTop";
 
 const MainLayout = ()=>{
   return (
@@ -34,6 +35,8 @@ const App = () => {
 
   return (
     <BrowserRouter>
+    <ScrollToTop/>
+      
       <Routes>
         {user ? (
           <Route element={<MainLayout/>}>
