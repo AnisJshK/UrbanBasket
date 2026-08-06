@@ -9,6 +9,7 @@ import {v2 as cloudinary} from 'cloudinary'
 import productRouter from "./routes/productRoute.js";
 import adminRouter from "./routes/adminRoute.js";
 import cors from 'cors'
+import cartRouter from "./routes/cartRoute.js";
 
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.get('/',(req,res)=>{
 app.use("/api/inngest",serve({client:inngest,functions}));
 app.use('/api/product',productRouter);
 app.use('/api/admin',adminRouter);
+app.use('/api/cart',cartRouter);
 
 console.log("Inngest mode:", process.env.INNGEST_DEV ? "DEV" : "CLOUD");
 
