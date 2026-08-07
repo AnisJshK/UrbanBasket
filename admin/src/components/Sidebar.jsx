@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 import {ListChecksIcon, ListIcon, Plus} from 'lucide-react'
-import { assets } from "../assets/admin_assets/assets"
+import { assets } from "../assets/admin_assets/assets.js"
 
 const Sidebar = () => {
   return (

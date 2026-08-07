@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { assets } from "../assets/admin_assets/assets"
+import { assets } from "../assets/admin_assets/assets.js"
 import axios from 'axios'
 import { AuthContext, backendUrl } from "../context/AdminAuth";
 import { useAuth } from "@clerk/clerk-react";

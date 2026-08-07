@@ -1,5 +1,5 @@
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
-import { assets } from "../assets/admin_assets/assets";
+import { assets } from "../assets/admin_assets/assets.js";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCartIcon } from "lucide-react";
 

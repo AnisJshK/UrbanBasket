@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext, backendUrl } from "../context/AdminAuth";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { assets } from "../assets/admin_assets/assets";
+import { assets } from "../assets/admin_assets/assets.js";
 
 const Orders = () => {
   const { getToken } = useContext(AuthContext);
