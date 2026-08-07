@@ -1,98 +1,143 @@
-import {  useState } from "react";
+import { useState, useContext } from "react";
 import { assets } from "../assets/frontend_assets/assets";
 import CartTotal from "../components/CartTotal";
 import Title from "../components/Title";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
-  
   const navigate = useNavigate();
-  const [method, setMethod] = useState(["stripe","razor_pay"]);
-  const {backendUrl,token,cartItems,setCartItems,getCartAmount,delivery_fee,products,getToken} = useContext(ShopContext);
-  const [formData,setFormData] = useState({
-    firstName:'',
-    lastName:'',
-    email:'',
-    street:'',
-    city:'',
-    state:'',
-    zipcode:'',
-    country:'',
-    phone:''
-  })
+  // Fixed: Default method initialized as a string
+  const [method, setMethod] = useState('cod'); 
+  const { backendUrl, cartItems, setCartItems, getCartAmount, delivery_fee, products, getToken } = useContext(ShopContext);
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    street: '',
+    city: '',
+    state: '',
+    zipcode: '',
+    country: '',
+    phone: ''
+  });
 
   const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    setFormData(data => ({ ...data, [name]: value }));
+  };
 
-    setFormData(data=>({...data,[name]:value}))
+  const initPay = async (order) => {
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      name: 'Order Payment',
+      description: 'Order Payment',
+      order_id: order.id,
+      receipt: order.receipt,
+      handler: async (response) => {
+        try {
+          const token = await getToken();
+          // Fixed: Destructuring `data` from Axios response
+          const { data } = await axios.post(`${backendUrl}/api/order/verifyRazorpay`, response, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
 
-  }
+          if (data.success) {
+            setCartItems({});
+            navigate('/my-orders');
+          } else {
+            toast.error(data.message);
+          }
+        } catch (error) {
+          console.log(error);
+          toast.error(error.message);
+        }
+      }
+    };
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  };
 
-  const onSubmitHandler = async(event)=>{
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
-      let orderItems = []
-      for(const items in cartItems){
-        for(const item in cartItems[items]){
-          if(cartItems[items][item]>0){
-            const itemInfo = structuredClone(products.find(product=>(product._id)===(items)))
-            if(itemInfo){
+      let orderItems = [];
+      for (const items in cartItems) {
+        for (const item in cartItems[items]) {
+          if (cartItems[items][item] > 0) {
+            const itemInfo = structuredClone(products.find(product => (product._id) === (items)));
+            if (itemInfo) {
               itemInfo.size = item;
-              itemInfo.quantity = cartItems[items][item]
-              orderItems.push(itemInfo)
+              itemInfo.quantity = cartItems[items][item];
+              orderItems.push(itemInfo);
             }
           }
         }
       }
-      let orderData = {
-        address:formData,
-        items:orderItems,
-        amount:getCartAmount()+delivery_fee
-      }
-      const token = await getToken();
-      switch(method){
-        //API Calls for COD
-        case 'cod':
-          const response = await axios.post(`${backendUrl}/api/order/placeOrder`,orderData,{
-            headers:{
-              Authorization:`Bearer ${token}`
-            }
-          })
-          if(response.data.success){
-            setCartItems({})
-            navigate('/my-orders');
-          }else{
-            toast.error(response.data.message)
-          }
-          break;
-        case 'stripe':
-          const responseStripe = await axios.post(`${backendUrl}/api/order/stripe`,orderData,{
-            headers:{
-              Authorization:`Bearer ${token}`
-            }
-          })
-          if(responseStripe.data.success){
-            const {session_url} = responseStripe.data
-            window.location.replace(session_url)
-          }else{
-            toast.error(responseStripe.data.message)
-          }
-          break;
-        default:
 
+      let orderData = {
+        address: formData,
+        items: orderItems,
+        amount: getCartAmount() + delivery_fee
+      };
+
+      const token = await getToken();
+
+      switch (method) {
+        case 'cod': {
+          const response = await axios.post(`${backendUrl}/api/order/placeOrder`, orderData, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          if (response.data.success) {
+            setCartItems({});
+            navigate('/my-orders');
+          } else {
+            toast.error(response.data.message);
+          }
+          break;
+        }
+
+        case 'stripe': {
+          const responseStripe = await axios.post(`${backendUrl}/api/order/stripe`, orderData, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          if (responseStripe.data.success) {
+            const { session_url } = responseStripe.data;
+            window.location.replace(session_url);
+          } else {
+            toast.error(responseStripe.data.message);
+          }
+          break;
+        }
+
+        case 'razor_pay': {
+          const responserazorpay = await axios.post(`${backendUrl}/api/order/razorpay`, orderData, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          if (responserazorpay.data.success) {
+            initPay(responserazorpay.data.order);
+          } else {
+            toast.error(responserazorpay.data.message);
+          }
+          break;
+        }
+
+        default:
           break;
       }
-      
     } catch (error) {
       console.log(error);
-      toast.error(error.message)
+      toast.error(error.message);
     }
-  }
-
+  };
 
   const inputStyle = 
     "w-full border border-zinc-300 bg-white rounded py-2 px-3.5 text-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-800 transition-colors";
@@ -112,7 +157,6 @@ const PlaceOrder = () => {
         </div>
 
         <input required onChange={onChangeHandler} name="email" value={formData.email} className={inputStyle} type="email" placeholder="Email address" />
-
         <input required onChange={onChangeHandler} name="street" value={formData.street} className={inputStyle} type="text" placeholder="Street address" />
 
         <div className="flex gap-3">
@@ -130,17 +174,14 @@ const PlaceOrder = () => {
 
       {/* ---------------- Right Side: Cart Summary & Payment ---------------- */}
       <div className="flex flex-col gap-8 w-full lg:max-w-[480px]">
-        
         <div className="w-full">
           <CartTotal />
         </div>
 
-        {/* Payment Methods */}
         <div className="flex flex-col gap-4">
           <Title text1={"PAYMENT"} text2={"METHOD"} />
 
           <div className="flex gap-3 flex-col sm:flex-row flex-wrap">
-            
             <div 
               onClick={() => setMethod('stripe')} 
               className={`flex items-center gap-3 border p-3 px-4 rounded cursor-pointer transition-colors w-full sm:w-48 ${
@@ -152,6 +193,7 @@ const PlaceOrder = () => {
               </span>
               <img className="h-4 object-contain" src={assets.stripe_logo} alt="Stripe" />
             </div>
+
             <div 
               onClick={() => setMethod('razor_pay')} 
               className={`flex items-center gap-3 border p-3 px-4 rounded cursor-pointer transition-colors w-full sm:w-48 ${
@@ -163,7 +205,6 @@ const PlaceOrder = () => {
               </span>
               <img className="h-4 object-contain" src={assets.razorpay_logo} alt="razor_pay" />
             </div>
-            
 
             <div 
               onClick={() => setMethod('cod')} 
@@ -178,14 +219,12 @@ const PlaceOrder = () => {
             </div>
           </div>
 
-          {/* Place Order CTA Button */}
           <div className="w-full text-end mt-4">
-            <button type="submit"  className="bg-zinc-900 text-white hover:bg-zinc-700 font-bold uppercase tracking-widest text-xs px-8 py-3 rounded transition-colors w-full sm:w-auto cursor-pointer">
+            <button type="submit" className="bg-zinc-900 text-white hover:bg-zinc-700 font-bold uppercase tracking-widest text-xs px-8 py-3 rounded transition-colors w-full sm:w-auto cursor-pointer">
               Place Order
             </button>
           </div>
         </div>
-
       </div>
 
     </form>
