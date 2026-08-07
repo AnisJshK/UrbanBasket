@@ -13,6 +13,7 @@ import MyCart from "./pages/MyCart";
  import { ToastContainer } from 'react-toastify';
 import PlaceOrder from "./pages/PlaceOrder";
 import ScrollToTop from "./components/ScrollToTop";
+import Verify from "./pages/Verify";
 
 const MainLayout = ()=>{
   return (
@@ -48,6 +49,7 @@ const App = () => {
             <Route path="/products/:id" element={<ProductDetails/>} />
             <Route path="/my-cart" element={<MyCart/>} />
             <Route path="/place-order" element={<PlaceOrder/>} />
+            <Route path="/verify" element={<Verify/>} />
           </Route>
             
         ) : (
