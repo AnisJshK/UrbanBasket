@@ -1,10 +1,11 @@
-import { UserButton, useUser } from "@clerk/clerk-react";
+import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
 import { assets } from "../assets/admin_assets/assets";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCartIcon } from "lucide-react";
 
 const Navbar = () => {
   const {user} = useUser()
+  const {openSignIn} = useClerk();
   const navigate = useNavigate()
   return (
     <div className="flex items-center py-2 px-[4%]  rounded-2xl ">
