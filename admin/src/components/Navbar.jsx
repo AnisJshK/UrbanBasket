@@ -8,7 +8,7 @@ const Navbar = () => {
   const {openSignIn} = useClerk();
   const navigate = useNavigate()
   return (
-    <div className="flex items-center py-2 px-[4%]  rounded-2xl ">
+    <div className="flex items-center py-2 px-[4%] rounded-2xl ">
       <div className="w-14 h-14 bg-linear-to-br  rounded-xl flex items-center justify-center shadow-md shadow-green-500/20 transition-all duration-300 group-hover:scale-105 group-hover:shadow-green-500/30">
                 <img
                   src={assets.logo}
