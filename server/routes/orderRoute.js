@@ -10,7 +10,7 @@ orderRouter.post('/placeOrder',protectUser,placeOrder);
 
 
 
-orderRouter.post('/list',protectAdmin,allOrders);
+orderRouter.get('/listOrders',protectAdmin,allOrders);
 orderRouter.post('/status',protectAdmin,updateStatus);
 
 orderRouter.post('/userorders',protectUser,userOrders);

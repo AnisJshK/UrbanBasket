@@ -69,13 +69,16 @@ const Orders = () => {
                     {currency}{item.price}
                   </p>
                   <span>•</span>
-                  <p>Quantity: <span className="text-zinc-900">1</span></p>
+                  <p>Quantity: <span className="text-zinc-900">{item.quantity }</span></p>
                   <span>•</span>
-                  <p>Size: <span className="text-zinc-900">M</span></p>
+                  <p>Size: <span className="text-zinc-900">{item.size}</span></p>
                 </div>
 
                 <p className="text-xs text-zinc-500 mt-1">
-                  Date: <span className="text-zinc-700 font-medium">25, July 2026</span>
+                  Date: <span className="text-zinc-700 font-medium">{new Date(item.date).toDateString()}</span>
+                </p>
+                <p className="text-xs text-zinc-500 mt-1">
+                  Payment: <span className="text-zinc-700 font-medium">{item.paymentMethod}</span>
                 </p>
               </div>
             </div>
@@ -83,10 +86,10 @@ const Orders = () => {
             <div className="flex items-center justify-between md:justify-end gap-6 md:w-1/2">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <p className="text-sm font-medium text-zinc-700">Ready to ship</p>
+                <p className="text-sm font-medium text-zinc-700">{item.status}</p>
               </div>
 
-              <button className="border border-zinc-300 text-zinc-800 hover:bg-zinc-900 hover:text-white text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded transition-colors">
+              <button onClick={loadOrderData } className="border border-zinc-300 text-zinc-800 hover:bg-zinc-900 hover:text-white text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded transition-colors">
                 Track Order
               </button>
             </div>
