@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import axios from 'axios';
 import {useAuth} from '@clerk/react'
 
-
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) =>{
@@ -14,7 +13,6 @@ const ShopContextProvider = (props) =>{
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const [cartItems,setCartItems] = useState({});
     const [products,setProducts] = useState([]);
-
     const addToCart = async (itemId,size) => {
         if(!size){
             toast.error('Select Product Size')
@@ -137,8 +135,12 @@ const ShopContextProvider = (props) =>{
         products,
         currency,
         delivery_fee,
-        cartItems,addToCart,updateQuantity,getCartAmount,
-        backendUrl
+        cartItems,setCartItems,
+        addToCart,
+        updateQuantity,
+        getCartAmount,
+        backendUrl,
+        getToken
     }
     return (
         <ShopContext.Provider value={value}>

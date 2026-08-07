@@ -1,10 +1,45 @@
-import { useContext } from "react";
-import { ShopContext } from "../context/ShopContext";
-import Title from "../components/Title";
+import { useContext, useEffect,useState } from "react";
+import { ShopContext } from "../context/ShopContext.jsx";
+import Title from "../components/Title.jsx";
+import { toast } from "react-toastify";
+import axios from "axios";
+import {useAuth} from '@clerk/react';
 
 const Orders = () => {
-  const { products, currency } = useContext(ShopContext);
+  const { backendUrl,currency } = useContext(ShopContext);
+  const {getToken} = useAuth();
+  const [orderData,setOrderData] = useState([]);
 
+  const loadOrderData = async(req,res)=>{
+    try {
+      const token = await getToken();
+      const response = await axios.post(`${backendUrl}/api/order/userorders`,{},{
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      })
+      if(response.data.success){
+        let allOrdersItem = []
+        response.data.orders.map((order)=>{
+          order.items.map((item)=>{
+            item['status']=order.status
+            item['payment']=order.payment
+            item['paymentMethod']=order.paymentMethod
+            item['date']=order.date
+            allOrdersItem.push(item)
+          })
+        })
+        setOrderData(allOrdersItem.reverse());
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  }
+  useEffect(()=>{
+    loadOrderData();
+  },[])
+ 
   return (
     <div className="border-t border-zinc-200 pt-10 sm:pt-16 pb-20 px-4 sm:px-10 max-w-7xl mx-auto">
       <div className="text-xl sm:text-2xl mb-6">
@@ -12,7 +47,7 @@ const Orders = () => {
       </div>
 
       <div className="flex flex-col gap-4">
-        {products.slice(1, 4).map((item, index) => (
+        {orderData.map((item, index) => (
           <div
             key={index}
             className="py-5 border-b border-zinc-200 text-zinc-800 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
@@ -61,5 +96,6 @@ const Orders = () => {
     </div>
   );
 };
+
 
 export default Orders;

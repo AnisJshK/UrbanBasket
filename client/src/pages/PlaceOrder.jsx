@@ -3,9 +3,15 @@ import { assets } from "../assets/frontend_assets/assets";
 import CartTotal from "../components/CartTotal";
 import Title from "../components/Title";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
 
 const PlaceOrder = () => {
+  
+  const navigate = useNavigate();
   const [method, setMethod] = useState(["stripe","razor_pay"]);
+  const {backendUrl,token,cartItems,setCartItems,getCartAmount,delivery_fee,products,getToken} = useContext(ShopContext);
   const [formData,setFormData] = useState({
     firstName:'',
     lastName:'',
@@ -26,13 +32,60 @@ const PlaceOrder = () => {
 
   }
 
-  const navigate = useNavigate();
+  const onSubmitHandler = async(event)=>{
+    event.preventDefault();
+    try {
+      let orderItems = []
+      for(const items in cartItems){
+        for(const item in cartItems[items]){
+          if(cartItems[items][item]>0){
+            const itemInfo = structuredClone(products.find(product=>(product._id)===(items)))
+            if(itemInfo){
+              itemInfo.size = item;
+              itemInfo.quantity = cartItems[items][item]
+              orderItems.push(itemInfo)
+            }
+          }
+        }
+      }
+      let orderData = {
+        address:formData,
+        items:orderItems,
+        amount:getCartAmount()+delivery_fee
+      }
+      const token = await getToken();
+      switch(method){
+        //API Calls for COD
+        case 'cod':
+          const response = await axios.post(`${backendUrl}/api/order/placeOrder`,orderData,{
+            headers:{
+              Authorization:`Bearer ${token}`
+            }
+          })
+          if(response.data.success){
+            setCartItems({})
+            navigate('/my-orders');
+          }else{
+            toast.error(response.data.message)
+          }
+          break;
+        default:
+
+          break;
+      }
+      
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message)
+    }
+  }
+
 
   const inputStyle = 
     "w-full border border-zinc-300 bg-white rounded py-2 px-3.5 text-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-800 transition-colors";
 
   return (
-    <form className="flex flex-col lg:flex-row justify-between gap-10 sm:gap-16 pt-10 sm:pt-16 pb-20 px-4 sm:px-10 border-t border-zinc-200 min-h-[80vh] max-w-7xl mx-auto bg-white">
+    <form onSubmit={onSubmitHandler} className="flex flex-col lg:flex-row justify-between gap-10 sm:gap-16 pt-10 sm:pt-16 pb-20 px-4 sm:px-10 border-t border-zinc-200 min-h-[80vh] max-w-7xl mx-auto bg-white">
       
       {/* ---------------- Left Side: Delivery Information ---------------- */}
       <div className="flex flex-col gap-4 w-full lg:max-w-[480px]">
