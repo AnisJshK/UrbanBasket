@@ -129,7 +129,7 @@ It contains:
 Clone the repository:
 
 ```sh
-git clone <repository-url>
+git clone https://github.com/AnisJshK/UrbanBasket.git
 cd UrbanBasket
 ```
 
