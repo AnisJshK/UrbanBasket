@@ -1,4 +1,5 @@
 # UrbanBasket
+
 UrbanBasket is a full-stack e-commerce application with separate frontend applications for customers and administrators, powered by a shared backend server.
 
 ## What's inside?
@@ -58,6 +59,13 @@ The admin application provides:
 * Cloudinary — Image uploads
 * Stripe — Payments
 * Razorpay — Payments
+
+### DevOps
+
+* Docker
+* Nginx
+* Docker Hub
+* GitHub Actions
 
 ## Architecture
 
@@ -123,6 +131,92 @@ It contains:
 * Clerk integration
 * Inngest integration
 * Cloudinary integration
+
+## Docker
+
+All three applications are containerized using Docker.
+
+```text
+UrbanBasket
+│
+├── client  → Docker → Nginx
+├── admin   → Docker → Nginx
+└── server  → Docker → Node.js
+```
+
+The `client` and `admin` applications use multi-stage Docker builds to create optimized production images. Their Vite production builds are served using Nginx.
+
+The backend runs in its own Node.js container.
+
+Docker images are published to Docker Hub:
+
+```text
+Docker Hub
+│
+├── urbanbasket-client
+├── urbanbasket-admin
+└── urbanbasket-server
+```
+
+### Nginx
+
+Nginx is used to serve the production builds of both frontend applications.
+
+It is configured to support React Router by falling back to `index.html` for client-side routes.
+
+## CI/CD
+
+UrbanBasket uses **GitHub Actions** to automate the Docker image build and publishing process.
+
+Whenever changes are pushed to the `main` branch:
+
+```text
+Git Push
+   │
+   ▼
+GitHub Actions
+   │
+   ├── Build Client Image
+   ├── Build Admin Image
+   └── Build Server Image
+   │
+   ▼
+Tag Images
+   │
+   ▼
+Push to Docker Hub
+```
+
+Docker images are tagged using the **Git commit SHA**, allowing each image to be traced back to the exact version of the source code that produced it.
+
+A `main` tag is also maintained as a reference to the latest successful build.
+
+### GitHub Actions Workflow
+
+The CI/CD workflow is located at:
+
+```text
+.github/
+└── workflows/
+    └── docker.yml
+```
+
+The workflow:
+
+* Checks out the repository
+* Authenticates with Docker Hub
+* Sets up Docker Buildx
+* Builds the client Docker image
+* Builds the admin Docker image
+* Builds the server Docker image
+* Pushes the images to Docker Hub
+* Tags images using the Git commit SHA
+
+Frontend environment variables required by Vite are provided securely through **GitHub Actions Secrets** during the Docker build.
+
+Server-side environment variables are kept separate from the Docker image and are managed by the deployment environment.
+
+`.env` files are excluded from version control and are never committed to the repository.
 
 ## Installation
 
